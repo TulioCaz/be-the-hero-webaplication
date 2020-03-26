@@ -7,7 +7,7 @@
 </p>
 </br>
 
-<h2 align="center" style="font-weight: bold;">API Rest for  applications </h2>
+<h2 align="center" style="font-weight: bold;">ReactJS - Web Aplication </h2>
 
 <p align="center">"Quem cumpre somente a meta estipulada, nunca se supera. Vá sempre além."!</p>
 </br>
