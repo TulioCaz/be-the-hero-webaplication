@@ -1,0 +1,6 @@
+.content textarea {
+  min-height: 140px;
+  padding: 16px 24px;
+  line-height: 24px;
+  resize: vertical;
+}
