@@ -117,3 +117,27 @@ form textarea {
 .form-page-container .content form textarea {
   margin-top: 8px;
 }
+
+.content form input.error::-webkit-input-placeholder,
+.content form textarea.error::-webkit-input-placeholder {
+  color: tomato !important;
+  opacity: 1;
+}
+
+.content form input.error:-moz-placeholder,
+.content form textarea.error:-moz-placeholder{
+  color: tomato !important;
+  opacity: 1;
+}
+
+.content form input.error::-moz-placeholder,
+.content form textarea.error::-moz-placeholder {
+  color: tomato !important;
+  opacity: 1;
+}
+
+.content form input.error:-ms-input-placeholder,
+.content form textarea.error:-ms-input-placeholder {
+  color: tomato !important;
+  opacity: 1;
+}

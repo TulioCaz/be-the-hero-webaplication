@@ -5,3 +5,9 @@
 .input-group input + input {
   margin-left: 8px;
 }
+
+.filled {
+  border: #222222;
+}
+
+

@@ -1,60 +1,118 @@
-import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { FiLogIn } from 'react-icons/fi';
 
 import './styles.css';
 import logoImg from '../../assets/logo.svg';
 import heroesImg from '../../assets/heroes.png';
 
+import MessageContainer from '../../components/MessageContainer';
+
 import api from '../../services/api';
 
 export default function Logon() {
-  const [id, setId] = useState('');
-  const history = useHistory();
+  const [email, setEmail] = useState({
+    value: '',
+    status: '',
+    msgErr: '',
+  });
+  const [password, setPassword] = useState({
+    value: '',
+    status: '',
+    msgErr: '',
+  });
+
+  const [inputErrors, setInputErrors] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [redirect, setRedirect] = useState(false);
+
+  useEffect(() => {
+    const actions = {
+      password: setPassword,
+      email: setEmail,
+    };
+
+    inputErrors.forEach((err) => {
+      actions[err.key]({
+        value: '',
+        status: 'error',
+        errMsg: err.error,
+      });
+    });
+  }, [inputErrors]);
 
   async function handleLogin(e) {
     e.preventDefault();
+    setInputErrors([]);
 
     try {
-      const response = await api.post('sessions', { id });
+      const response = await api.post('sessions', {
+        email: email.value,
+        password: password.value,
+      });
 
-      // eslint-disable-next-line no-console
-      console.log(`Login da ONG ${response.data.name}`);
+      const { errors, ong, token } = response.data;
 
-      localStorage.setItem('ongId', id);
-      localStorage.setItem('ongName', response.data.name);
+      if (errors) {
+        setInputErrors(errors);
+      }
 
-      history.push('/profile');
+      localStorage.setItem('ongId', ong.id);
+      localStorage.setItem('ongName', ong.name);
+      localStorage.setItem('token', token);
+
+      setSuccessMessage(`Voce logou na Ong: ${ong.name}`);
+      setRedirect(true);
     } catch (err) {
-      alert('Falha no Login, tente novamente.');
+      setErrorMessage('Não foi possivel fazer o login, tente novamente');
     }
   }
 
   return (
-    <div className="logon-container">
-      <section className="form">
-        <img src={logoImg} alt="Be The Hero" />
+    <>
+      <div className="logon-container">
+        <section className="form">
+          <img src={logoImg} alt="Be The Hero" />
 
-        <form onSubmit={handleLogin}>
-          <h1>Faça seu logon</h1>
+          <form onSubmit={handleLogin}>
+            <h1>Faça seu logon</h1>
 
-          <input
-            placeholder="Sua ID"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
-          />
-          <button className="button" type="submit">
-            Entrar
-          </button>
+            <input
+              type="email"
+              placeholder="Seu email"
+              value={email.value}
+              onChange={(e) =>
+                setEmail({ value: e.target.value, status: '', msgErr: '' })
+              }
+            />
 
-          <Link className="back-link" to="/register">
-            <FiLogIn size={16} color="#e02041" />
-            Não tenho cadastro
-          </Link>
-        </form>
-      </section>
+            <input
+              type="password"
+              placeholder="Sua senha"
+              value={password.value}
+              onChange={(e) =>
+                setPassword({ value: e.target.value, status: '', msgErr: '' })
+              }
+            />
+            <button className="button" type="submit">
+              Entrar
+            </button>
 
-      <img src={heroesImg} alt="Heroes" />
-    </div>
+            <Link className="back-link" to="/register">
+              <FiLogIn size={16} color="#e02041" />
+              Não tenho cadastro
+            </Link>
+          </form>
+        </section>
+
+        <img src={heroesImg} alt="Heroes" />
+      </div>
+      <MessageContainer
+        message={errorMessage || successMessage}
+        path="/profile"
+        redirect={redirect}
+      />
+    </>
   );
 }

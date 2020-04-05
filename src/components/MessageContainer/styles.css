@@ -1,0 +1,32 @@
+.messageContainer {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 100px;
+  background: #ddd;
+  top: 35%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  border-radius: 8px;
+  max-width: 520px;
+  display: none;
+}
+
+.messageContainer img {
+  margin-bottom: 24px;
+  width: 125px;
+  height: 53px;
+
+}
+
+.messageContainer h2 {
+  font-size: 20px;
+  margin-bottom: 24px;
+}
+
+.messageContainer.enable {
+  display: initial;
+}
