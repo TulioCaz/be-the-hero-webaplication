@@ -16,10 +16,9 @@
 }
 
 .messageContainer img {
-  margin-bottom: 24px;
+  margin: 0 97.5px 24px;
   width: 125px;
   height: 53px;
-
 }
 
 .messageContainer h2 {
