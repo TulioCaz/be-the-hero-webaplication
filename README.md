@@ -19,9 +19,8 @@
 
 Este projeto foi desenvolvido com a ajuda das seguintes tecnologias.
 
-- [ReactJS](https://nodejs.org)
-- [Axios](https://expressjs.com)
-- [React router-dom](https://github.com/jquense/yup)
+- [ReactJS](https://reactjs.org/)
+- [Axios](https://github.com/axios/axios)
 
 ## 💻 Projeto
 
