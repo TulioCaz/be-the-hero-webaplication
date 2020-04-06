@@ -98,6 +98,10 @@ export default function Register() {
       setRedirect(true);
       setSuccessMessage(message);
     } catch (err) {
+      if (err.response.data.errors) {
+        setInputErrors([err.response.data.errors]);
+        return;
+      }
       setErrorMessage('Erro ao tentar cadastrar, tente novamente!');
     }
   }
